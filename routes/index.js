@@ -1,20 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const path = require('path');
-const { supabase } = require('../app');
-
-// Configuração do Multer para usar o diretório temporário `/tmp`
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, '/tmp'); // Diretório temporário permitido na Vercel
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
-
-const upload = multer({ storage });
+// const upload = multer({ dest: 'uploads/' });
+// const { supabase } = require('../app');
 
 // Página inicial
 router.get('/', (req, res) => res.render('layout', { body: 'index', title: 'Home' }));
@@ -47,57 +35,48 @@ router.get('/driver', async (req, res) => {
     res.render('layout', {  body: 'driver', title: 'Seja Motorista', bairros });
 });
 
-router.post('/driver', upload.single('vehicle_image'), async (req, res) => {
-    try {
-        const {
-            name,
-            phone,
-            work_hours,
-            neighborhood,
-            freight_type,
-            vehicle_size,
-            vehicle_model,
-            has_helper,
-        } = req.body;
+// router.post('/driver', upload.single('vehicle_image'), async (req, res) => {
+//     try {
+//         const {
+//             name,
+//             phone,
+//             work_hours,
+//             neighborhood,
+//             freight_type,
+//             vehicle_size,
+//             vehicle_model,
+//             has_helper
+//         } = req.body;
 
-        const helper = has_helper === 'true';
+//         const helper = has_helper === 'true';
 
-        // Verifica se o arquivo foi enviado
-        let vehicleImagePath = null;
-        if (req.file) {
-            // Caminho temporário no servidor
-            vehicleImagePath = `/tmp/${req.file.filename}`;
+//         // Inserir dados do motorista no Supabase
+//         const { data, error } = await supabase
+//             .from('drivers')
+//             .insert([
+//                 {
+//                     name,
+//                     phone,
+//                     work_hours: Array.isArray(work_hours) ? work_hours.join(',') : work_hours,
+//                     neighborhood,
+//                     freight_type: Array.isArray(freight_type) ? freight_type.join(',') : freight_type,
+//                     vehicle_size,
+//                     vehicle_model,
+//                     has_helper: helper,
+//                     vehicle_image: req.file ? `/uploads/${req.file.filename}` : null, // Caminho do arquivo de imagem
+//                 }
+//             ]);
 
-            // Aqui você pode mover ou processar o arquivo, como enviá-lo para um armazenamento na nuvem (ex.: AWS S3, Google Cloud Storage).
-        }
+//         if (error) {
+//             throw error;
+//         }
 
-        // Inserir dados do motorista no Supabase
-        const { data, error } = await supabase
-            .from('drivers')
-            .insert([
-                {
-                    name,
-                    phone,
-                    work_hours: Array.isArray(work_hours) ? work_hours.join(',') : work_hours,
-                    neighborhood,
-                    freight_type: Array.isArray(freight_type) ? freight_type.join(',') : freight_type,
-                    vehicle_size,
-                    vehicle_model,
-                    has_helper: helper,
-                    vehicle_image: vehicleImagePath, // Caminho do arquivo de imagem
-                },
-            ]);
-
-        if (error) {
-            throw error;
-        }
-
-        res.redirect('/driver-success');
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Erro ao processar o cadastro');
-    }
-});
+//         res.redirect('/driver-success'); // Roteamento após sucesso
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).send('Erro ao processar o cadastro');
+//     }
+// });
 
 module.exports = router;
 
