@@ -1,8 +1,20 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
+const path = require('path');
 const { supabase } = require('../app');
+
+// Configuração do Multer para usar o diretório temporário `/tmp`
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '/tmp'); // Diretório temporário permitido na Vercel
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage });
 
 // Página inicial
 router.get('/', (req, res) => res.render('layout', { body: 'index', title: 'Home' }));
@@ -45,10 +57,19 @@ router.post('/driver', upload.single('vehicle_image'), async (req, res) => {
             freight_type,
             vehicle_size,
             vehicle_model,
-            has_helper
+            has_helper,
         } = req.body;
 
         const helper = has_helper === 'true';
+
+        // Verifica se o arquivo foi enviado
+        let vehicleImagePath = null;
+        if (req.file) {
+            // Caminho temporário no servidor
+            vehicleImagePath = `/tmp/${req.file.filename}`;
+
+            // Aqui você pode mover ou processar o arquivo, como enviá-lo para um armazenamento na nuvem (ex.: AWS S3, Google Cloud Storage).
+        }
 
         // Inserir dados do motorista no Supabase
         const { data, error } = await supabase
@@ -63,15 +84,15 @@ router.post('/driver', upload.single('vehicle_image'), async (req, res) => {
                     vehicle_size,
                     vehicle_model,
                     has_helper: helper,
-                    vehicle_image: req.file ? `/uploads/${req.file.filename}` : null, // Caminho do arquivo de imagem
-                }
+                    vehicle_image: vehicleImagePath, // Caminho do arquivo de imagem
+                },
             ]);
 
         if (error) {
             throw error;
         }
 
-        res.redirect('/driver-success'); // Roteamento após sucesso
+        res.redirect('/driver-success');
     } catch (error) {
         console.error(error);
         res.status(500).send('Erro ao processar o cadastro');
