@@ -27,5 +27,5 @@ const adminRoutes = require('./routes/admin');
 app.use('/', indexRoutes);
 app.use('/admin/', adminRoutes);
 
-// Iniciar o servidor
-app.listen(port, () => console.log(`Servidor rodando em http://localhost:${port}`));
+module.exports = app;
+
