@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<%- include('partials/head') %>
+
+    <body>
+
+        <!-- Preloader Start -->
+        <div class="preloader">
+            <div class="loading-container">
+                <div class="loading"></div>
+                <div id="loading-icon"><img src="/img/loader.svg" alt=""></div>
+            </div>
+        </div>
+        <!-- Preloader End -->
+
+        <%- include('partials/header') %>
+
+            
+        <%- include('pages/' + body) %>
+            
+           
+        <%- include('partials/footer') %>
+      
+        <%- include('partials/scripts') %>
+
+    </body>
+
+</html>

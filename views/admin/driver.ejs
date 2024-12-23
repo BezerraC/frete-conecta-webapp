@@ -1,0 +1,36 @@
+<h1>Lista de Motoristas</h1>
+<div class="drivers-container">
+    <% if (drivers.length> 0) { %>
+        <% drivers.forEach(driver=> { %>
+            <div class="driver-card">
+                <img src="<%= driver.vehicle_image %>" alt="Imagem do Veículo" class="vehicle-image">
+                <h2>
+                    <%= driver.name %>
+                </h2>
+                <p><strong>Telefone:</strong>
+                    <%= driver.phone %>
+                </p>
+                <p><strong>Bairro:</strong>
+                    <%= driver.neighborhood %>
+                </p>
+                <p><strong>Horários:</strong>
+                    <%= driver.work_hours %>
+                </p>
+                <p><strong>Tipos de Frete:</strong>
+                    <%= driver.freight_type %>
+                </p>
+                <p><strong>Tamanho do Veículo:</strong>
+                    <%= driver.vehicle_size %>
+                </p>
+                <p><strong>Modelo do Veículo:</strong>
+                    <%= driver.vehicle_model %>
+                </p>
+                <p><strong>Possui Ajudante?</strong>
+                    <%= driver.has_helper ? 'Sim' : 'Não' %>
+                </p>
+            </div>
+            <% }); %>
+                <% } else { %>
+                    <p>Não há motoristas cadastrados.</p>
+                    <% } %>
+</div>
