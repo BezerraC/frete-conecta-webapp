@@ -8,8 +8,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Configuração do Supabase
-const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
-module.exports.supabase = supabase;
+// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+// module.exports.supabase = supabase;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,8 +24,10 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // Rotas
 const indexRoutes = require('./routes/index');
 const adminRoutes = require('./routes/admin');
+const authRoutes = require('./routes/auth');
 app.use('/', indexRoutes);
 app.use('/admin/', adminRoutes);
+app.use('/', authRoutes);
 
 module.exports = app;
 
