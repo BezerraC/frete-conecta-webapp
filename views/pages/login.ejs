@@ -18,26 +18,18 @@
         <div class="row justify-content-center align-items-center">
           <div class="col-lg-6">
             <div class="contact-form-box wow fadeInUp" data-wow-delay="0.5s">
+              <% if (error_msg && error_msg.length > 0) { %>
+                <div class="alert alert-danger alert-dismissible fade show mb-4" role="alert">
+                  <%= error_msg %>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              <% } %>
               <!-- Contact Form Start -->
               <div class="contact-form">
-                <form id="contactForm" action="#" method="POST" data-toggle="validator">
+                <form action="/login" method="POST" data-toggle="validator">
                   <div class="row">
-                    <div class="form-group col-md-6 mb-4">
-                      <input type="text" name="fname" class="form-control" id="fname" placeholder="nome" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
 
-                    <div class="form-group col-md-6 mb-4">
-                      <input type="text" name="lname" class="form-control" id="lname" placeholder="sobrenome" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-
-                    <div class="form-group col-md-6 mb-4">
-                      <input type="text" name="phone" class="form-control" id="phone" placeholder="Telefone" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-
-                    <div class="form-group col-md-6 mb-4">
+                    <div class="form-group col-md-12 mb-4">
                       <input type="email" name="email" class="form-control" id="email" placeholder="email" required>
                       <div class="help-block with-errors"></div>
                     </div>
@@ -47,13 +39,8 @@
                       <div class="help-block with-errors"></div>
                     </div>
 
-                    <div class="form-group col-md-12 mb-4">
-                      <input type="password" name="retype-password" class="form-control" id="retype-password" placeholder="repita sua senha" required>
-                      <div class="help-block with-errors"></div>
-                    </div>
-
                     <div class="col-md-12">
-                      <button type="submit" class="btn-default">enviar cadastro</button>
+                      <button type="submit" class="btn-default">entrar</button>
                       <div id="msgSubmit" class="h3 text-left hidden"></div>
                     </div>
                   </div>
