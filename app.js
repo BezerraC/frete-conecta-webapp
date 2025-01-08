@@ -32,10 +32,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-    console.log("Sessão:", req.session);
-    next();
-  });
+// app.use((req, res, next) => {
+//     console.log("Sessão:", req.session);
+//     next();
+//   });
 
 // Configuração EJS
 app.set("view engine", "ejs");
