@@ -1,4 +1,5 @@
 const express = require("express");
+require('./config/migrate');
 const path = require("path");
 const bodyParser = require("body-parser");
 const { createClient } = require("@supabase/supabase-js");
