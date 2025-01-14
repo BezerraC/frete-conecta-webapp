@@ -24,13 +24,21 @@
 
 
           <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/register">cadastro</a></li>
+            <% if (user) { %>
+              <li class="nav-item"><a class="nav-link" href="/logout">sair</a></li>
+              <% } else { %>
+                <li class="nav-item"><a class="nav-link" href="/register">cadastro</a></li>
+                <% } %>
           </ul>
 
 
           <!-- Let’s Start Button Start -->
           <div class="header-btn d-inline-flex">
-            <a href="/login" class="btn-default">login</a>
+            <% if (user) { %>
+              <a href="/account" class="btn-default">Minha Conta</a>
+              <% } else { %>
+                <a href="/login" class="btn-default">Login</a>
+                <% } %>
           </div>
           <!-- Let’s Start Button End -->
 
