@@ -17,8 +17,13 @@
               <li class="nav-item"><a class="nav-link" href="/about">sobre nós</a></li>
               <li class="nav-item"><a class="nav-link" href="/services">serviços</a></li>
               <li class="nav-item"><a class="nav-link" href="/contact">contato</a></li>
+              <% if (user) { %>
+                <li class="nav-item d-block d-sm-none"><a class="nav-link" href="/account">minha conta</a></li>
+                <li class="nav-item d-block d-sm-none"><a class="nav-link" href="/logout">sair</a></li>
+                <% } else { %>
               <li class="nav-item d-block d-sm-none"><a class="nav-link" href="/login">login</a></li>
               <li class="nav-item d-block d-sm-none"><a class="nav-link" href="/register">cadastro</a></li>
+              <% } %>
             </ul>
           </div>
 
