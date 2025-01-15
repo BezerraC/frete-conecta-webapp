@@ -91,7 +91,7 @@ router.post("/login", async (req, res) => {
 
     req.flash("success_msg", "Login realizado com sucesso!");
     res.redirect(
-      user.type === "cliente" ? "/dashboard-cliente" : "/dashboard-motorista"
+      user.type === "cliente" ? "/dashboard" : "/driver/dashboard"
     );
   } catch (error) {
     console.error(error);
@@ -107,7 +107,7 @@ router.get("/logout", (req, res) => {
         req.flash("error_msg", "Erro ao fazer logout.");
         return res.redirect("/");
       }
-      res.redirect("/login");
+      res.redirect("/");
     });
   });
   

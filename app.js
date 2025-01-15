@@ -52,11 +52,11 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const indexRoutes = require("./routes/index");
 const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
-const dashRoutes = require("./routes/dashboards");
+const userRoutes = require("./routes/user");
 app.use("/", indexRoutes);
 app.use("/admin/", adminRoutes);
 app.use("/", authRoutes);
-app.use("/", dashRoutes);
+app.use("/", userRoutes);
 
 module.exports = app;
 

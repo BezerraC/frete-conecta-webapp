@@ -1,0 +1,115 @@
+<!-- Our Services Section Start -->
+<div class="our-services">
+    <div class="container">
+        <div class="row section-row align-items-center">
+            <div class="col-lg-7 col-md-7">
+                <!-- Section Title Start -->
+                <div class="section-title">
+                    <h3 class="wow fadeInUp">boa tarde</h3>
+                    <h2 class="text-anime-style-3">Olá <%= user.name %></h2>
+                </div>
+                <!-- Section Title End -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <% if (user.type === 'cliente') { %>
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.25s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>fazer mudança</h2>
+                            <a href="/request-truckage"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Realize mudanças residenciais de forma simples e eficiente com os melhores.</p>
+                    </div>
+                    
+                </div>
+                <!-- Service Item End -->
+            </div>
+        
+            <div class="col-lg-4 col-md-6">
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>minhas mudanças</h2>
+                            <a href="/my-request"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Confira o histórico de suas mudanças realizadas conosco.</p>
+                    </div>
+                    
+                </div>
+                <!-- Service Item End -->
+            </div>
+        
+            <div class="col-lg-4 col-md-6">
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.75s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>Mudança em andamento</h2>
+                            <a href="/request/:id"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Acompanhe o status da sua mudança em tempo real.</p>
+                    </div>
+                </div>
+                <!-- Service Item End -->
+
+                <% } else { %>
+
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.25s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>fazer frete</h2>
+                            <a href="/request-truckage"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Realize fretes de forma simples e eficiente com inúmeros clientes.</p>
+                    </div>
+                    
+                </div>
+                <!-- Service Item End -->
+            </div>
+        
+            <div class="col-lg-4 col-md-6">
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>meus fretes</h2>
+                            <a href="/my-request"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Confira o histórico de seus fretes realizadas conosco.</p>
+                    </div>
+                    
+                </div>
+                <!-- Service Item End -->
+            </div>
+        
+            <div class="col-lg-4 col-md-6">
+                <!-- Service Item Start -->
+                <div class="service-item wow fadeInUp" data-wow-delay="0.75s">
+                    <div class="service-content">
+                        <div class="service-content-title">
+                            <h2>frete em andamento</h2>
+                            <a href="/request/:id"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Acompanhe o status do seu frete em tempo real.</p>
+
+                        <!-- <div class="service-content-title">
+                            <h2>frete em andamento</h2>
+                            <a href="#"><img src="/img/arrow.svg" alt=""></a>
+                        </div>
+                        <p>Nenhum frete acontecendo no momento, inicie um frete para ve-lo em adamento.</p> -->
+                    </div>
+                </div>
+                <!-- Service Item End -->
+
+                <% } %>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Our Services Section End -->
