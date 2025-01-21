@@ -1,51 +1,3 @@
-<!-- <h1>Cadastro de Motorista</h1>
-<form action="/driver" method="POST" enctype="multipart/form-data">
-    <label for="name">Nome completo:</label>
-    <input type="text" id="name" name="name" required><br><br>
-
-    <label for="phone">Telefone (WhatsApp):</label>
-    <input type="text" id="phone" name="phone" required><br><br>
-
-    <label>Horário que trabalha:</label><br>
-    <input type="checkbox" name="work_hours" value="Manhã"> Manhã<br>
-    <input type="checkbox" name="work_hours" value="Tarde"> Tarde<br>
-    <input type="checkbox" name="work_hours" value="Noite"> Noite<br>
-    <input type="checkbox" name="work_hours" value="Sempre disponível"> Sempre disponível<br><br>
-
-    <label for="neighborhood">Qual seu bairro:</label>
-    <select id="neighborhood" name="neighborhood" required>
-        <% bairros.forEach(bairro=> { %>
-            <option value="<%= bairro %>">
-                <%= bairro %>
-            </option>
-            <% }) %>
-    </select><br><br>
-
-    <label>Qual tipo de frete você faz:</label><br>
-    <input type="checkbox" name="freight_type" value="Mudanças residenciais"> Mudanças residenciais<br>
-    <input type="checkbox" name="freight_type" value="Cargas"> Cargas<br>
-    <input type="checkbox" name="freight_type" value="Pequenos fretes"> Pequenos fretes<br>
-    <input type="checkbox" name="freight_type" value="Todos os tipos de fretes"> Todos os tipos de fretes<br>
-    <input type="checkbox" name="freight_type" value="Outro"> Outro<br><br>
-
-    <label for="vehicle_size">Qual o tamanho do seu veículo:</label><br>
-    <input type="checkbox" name="vehicle_size" value="Grande porte"> Grande porte<br>
-    <input type="checkbox" name="vehicle_size" value="Médio porte"> Médio porte<br>
-    <input type="checkbox" name="vehicle_size" value="Pequeno porte"> Pequeno porte<br><br>
-
-    <label for="vehicle_model">Marca ou modelo do veículo:</label>
-    <input type="text" id="vehicle_model" name="vehicle_model"><br><br>
-
-    <label for="vehicle_image">Imagem do veículo:</label>
-    <input type="file" id="vehicle_image" name="vehicle_image"><br><br>
-
-    <label>Possui algum ajudante?</label><br>
-    <input type="checkbox" name="has_helper" value="true"> Sim<br>
-    <input type="checkbox" name="has_helper" value="false"> Não<br><br>
-
-    <button type="submit">Cadastrar</button>
-</form> -->
-
 <!-- Login Section Start -->
 <div class="our-work">
     <div class="container">
@@ -84,8 +36,13 @@
                         <input type="text" name="phone" class="form-control" id="phone" placeholder="whatstapp" required>
                         <div class="help-block with-errors"></div>
                       </div>
-  
+
                       <div class="form-group col-md-6 mb-4">
+                        <input maxlength="14"  oninput="cpfMask(this)" onblur="validateCPF(this)" type="text" name="cpf" class="form-control" id="cpf" placeholder="CPF" required>
+                        <div class="help-block with-errors"></div>
+                      </div>
+  
+                      <div class="form-group col-md-12 mb-4">
                         <input type="email" name="email" class="form-control" id="email" placeholder="email" required>
                         <div class="help-block with-errors"></div>
                       </div>
@@ -118,3 +75,63 @@
   
     </div>
 </div>
+<script>
+function cpfMask(i) {
+  var v = i.value;
+  
+  // Remove qualquer caractere que não seja número
+  v = v.replace(/\D/g, "");
+
+  // Adiciona os pontos e o traço no lugar correto
+  if (v.length <= 11) {
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d)/, "$1.$2");
+    v = v.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
+  }
+  
+  i.value = v; // Atualiza o valor do campo
+}
+
+function validateCPF(input) {
+  const cpf = input.value.replace(/\D/g, ""); // Remove os caracteres de formatação
+
+  if (!isValidCPF(cpf)) {
+    // Exibe mensagem de erro
+    const errorDiv = input.nextElementSibling;
+    errorDiv.textContent = "CPF inválido.";
+    input.classList.add("is-invalid");
+  } else {
+    // Remove mensagem de erro, caso exista
+    const errorDiv = input.nextElementSibling;
+    errorDiv.textContent = "";
+    input.classList.remove("is-invalid");
+    input.classList.add("is-valid");
+  }
+}
+
+function isValidCPF(cpf) {
+  if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
+
+  let sum = 0;
+  let remainder;
+
+  // Validação do primeiro dígito verificador
+  for (let i = 1; i <= 9; i++) {
+    sum += parseInt(cpf.substring(i - 1, i)) * (11 - i);
+  }
+  remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+  if (remainder !== parseInt(cpf.substring(9, 10))) return false;
+
+  sum = 0;
+  // Validação do segundo dígito verificador
+  for (let i = 1; i <= 10; i++) {
+    sum += parseInt(cpf.substring(i - 1, i)) * (12 - i);
+  }
+  remainder = (sum * 10) % 11;
+  if (remainder === 10 || remainder === 11) remainder = 0;
+  if (remainder !== parseInt(cpf.substring(10, 11))) return false;
+
+  return true;
+}
+</script>
