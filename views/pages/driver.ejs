@@ -76,6 +76,30 @@
     </div>
 </div>
 <script>
+const passwordInput = document.getElementById("password");
+const retypePasswordInput = document.getElementById("retype-password");
+const errorDiv = document.querySelector("#retype-password + .help-block");
+
+function validatePasswords() {
+  const password = passwordInput.value;
+  const retypePassword = retypePasswordInput.value;
+
+  if (password && retypePassword) {
+    if (password !== retypePassword) {
+      errorDiv.textContent = "As senhas não coincidem.";
+    } else {
+      errorDiv.textContent = ""; // Remove a mensagem de erro
+    }
+  } else {
+    errorDiv.textContent = ""; // Limpa o erro se os campos estiverem vazios
+  }
+}
+
+// Adiciona o evento `input` para verificar enquanto o usuário digita
+passwordInput.addEventListener("input", validatePasswords);
+retypePasswordInput.addEventListener("input", validatePasswords);
+
+
 function phoneMask(input) {
   let v = input.value;
 
