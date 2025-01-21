@@ -33,7 +33,7 @@
                       </div>
   
                       <div class="form-group col-md-6 mb-4">
-                        <input type="text" name="phone" class="form-control" id="phone" placeholder="whatstapp" required>
+                        <input maxlength="15" oninput="phoneMask(this)"  type="text" name="phone" class="form-control" id="phone" placeholder="whatstapp" required>
                         <div class="help-block with-errors"></div>
                       </div>
 
@@ -76,6 +76,30 @@
     </div>
 </div>
 <script>
+function phoneMask(input) {
+  let v = input.value;
+
+  // Remove todos os caracteres não numéricos
+  v = v.replace(/\D/g, "");
+
+  // Aplica a máscara conforme o tamanho do número
+  if (v.length > 10) {
+    // Formato com 9 dígitos: (99) 99999-9999
+    v = v.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  } else if (v.length > 6) {
+    // Formato com 8 dígitos: (99) 9999-9999
+    v = v.replace(/^(\d{2})(\d{4})(\d{0,4})$/, "($1) $2-$3");
+  } else if (v.length > 2) {
+    // Formato inicial: (99) 9999
+    v = v.replace(/^(\d{2})(\d{0,5})$/, "($1) $2");
+  } else if (v.length > 0) {
+    // Apenas o DDD: (99
+    v = v.replace(/^(\d{0,2})$/, "($1");
+  }
+
+  input.value = v; // Atualiza o valor do campo
+}
+
 function cpfMask(i) {
   var v = i.value;
   
